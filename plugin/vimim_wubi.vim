@@ -46,7 +46,7 @@ let s:path=expand("<sfile>:p:h")."/"
  
 inoremap<silent><expr> <C-L> <SID>Toggle()
 
-function VimIM_Wubi(findstart, keyboard)
+function! VimIM_Wubi(findstart, keyboard)
     "补全函数
     "首先必须要返回一个起始点, 从超始点到当前光标处, 即是需要
     "匹配的字符.
@@ -103,7 +103,7 @@ else
 endif
 endfunction
 
-function s:GetTable()
+function! s:GetTable()
     "读取码表
 
     let tableFile = s:path . 'vimim_wubi.txt'
@@ -115,7 +115,7 @@ function s:GetTable()
     return table
 endfunction
 
-function s:GetMatchFrom(keyboard)
+function! s:GetMatchFrom(keyboard)
     "把参数 keyboard 拿到 g:table 去匹配
 
     let patterns = '^' . a:keyboard
@@ -147,7 +147,7 @@ function s:GetMatchFrom(keyboard)
     endif
 endfunction
 
-function s:MapAnyKeys()
+function! s:MapAnyKeys()
     "ValidKeys = [a-y]
     
     inoremap<buffer><silent> a a<C-R>=<SID>AnyKey('a')<CR>
@@ -178,7 +178,7 @@ function s:MapAnyKeys()
 
 endfunction
 
-function s:UnMapAnyKeys()
+function! s:UnMapAnyKeys()
     iunmap<buffer> a
     iunmap<buffer> b
     iunmap<buffer> c
@@ -206,7 +206,7 @@ function s:UnMapAnyKeys()
     iunmap<buffer> y
 endfunction
 
-function <SID>Toggle()
+function! <SID>Toggle()
     "切换中英文状态
 
     if !exists('b:chineseMode')
@@ -223,7 +223,7 @@ function <SID>Toggle()
     sil!exe 'sil!return "' . WTF . '"'
 endfunction
 
-function s:Init()
+function! s:Init()
     "初始化函数, 要设置需要的一些变量
     "在更改环境参数的时候, 先把之前的环境参数备份, 以便在切换到
     "英文状态时还原.
@@ -298,7 +298,7 @@ function s:Init()
     return ''
 endfunction
 
-function s:Exit()
+function! s:Exit()
     "退出中文输入状态调用此函数,
     "它会还原以前的环境变量, 同时把一些变量设置成默认,
     "它还会 unmap 一些映射.
@@ -367,7 +367,7 @@ function s:Exit()
     
 endfunction
 
-function <SID>AnyKey(key)
+function! <SID>AnyKey(key)
     "[a-y]在输入过程中的行为
 
     let s:typeLen += 1
@@ -425,7 +425,7 @@ function <SID>AnyKey(key)
     sil!exe 'sil!return "' . temp . '"' 
 endfunction
 
-function s:RefreshMatch()
+function! s:RefreshMatch()
     "刷新匹配列表.
     "在更新计数器 s:typeLen 时注意考虑是否要调用.
     "考虑 <Space> <BS> <Enter> 这些行为时考虑是否要调用.
@@ -441,7 +441,7 @@ function s:RefreshMatch()
     let s:matchFrom = s:GetMatchFrom(temstr[from : to])
 endfunction
 
-function <SID>SmartSpace()
+function! <SID>SmartSpace()
     "<Space>在输入过程中的行为
 
     let space = ' '
@@ -460,7 +460,7 @@ function <SID>SmartSpace()
     sil!exe 'sil!return "' . space . '"'
 endfunction
 
-function <SID>SmartBack()
+function! <SID>SmartBack()
     "<Backspace>在输入过程中的行为
 
     let bs = "\<BS>"
@@ -493,7 +493,7 @@ function <SID>SmartBack()
     sil!exe 'sil!return "' . bs . '"'
 endfunction
 
-function <SID>SmartEnter()
+function! <SID>SmartEnter()
     "<Enter>在输入过程中的行为
 
     if pumvisible()
@@ -510,7 +510,7 @@ function <SID>SmartEnter()
     sil!exe 'sil!return "' . enter . '"'
 endfunction
 
-function <SID>InputEnglish()
+function! <SID>InputEnglish()
     "使用 z 快捷输入英文, 这里还对是不是要在两边加一个空格
     "作了一些判断
 
@@ -531,7 +531,7 @@ function <SID>InputEnglish()
     endif
 endfunction
 
-function s:MapChinesePunc()
+function! s:MapChinesePunc()
     "映射中文标点
     "标点上屏也在这里映射上去
 
@@ -561,7 +561,7 @@ function s:MapChinesePunc()
     inoremap<buffer> " <C-R>=<SID>PuncIn()<CR>“”<++><Left><Left><Left><Left><Left>
 endfunction
 
-function s:UnMapChinesePunc()
+function! s:UnMapChinesePunc()
     let b:chinesePunc = 0
 
     inoremap<buffer> , <C-R>=<SID>PuncIn()<CR>,
@@ -590,7 +590,7 @@ function s:UnMapChinesePunc()
 
 endfunction
 
-function <SID>ChinesePuncToggle()
+function! <SID>ChinesePuncToggle()
     "中英文标点状态的切换
 
     if b:chinesePunc > 0
@@ -601,14 +601,14 @@ function <SID>ChinesePuncToggle()
     return ''
 endfunction
 
-function s:WTF()
+function! s:WTF()
     " ...
 
     let WTF = "\<ESC>a"
     sil!exe 'sil!return "' . WTF . '"'
 endfunction
 
-function <SID>PuncIn()
+function! <SID>PuncIn()
     let s:typeLen = 0
     if pumvisible()
         let puncIn = "\<C-Y>"
@@ -618,12 +618,12 @@ function <SID>PuncIn()
     sil!exe 'sil!return "' . puncIn . '"'
 endfunction
 
-function <SID>RZ()
+function! <SID>RZ()
     let s:typeLen = 0
     let s:matchFrom = -1
     return ''
 endfunction
 
-function s:Debug(var)
+function! s:Debug(var)
     let a = inputdialog(a:var)
 endfunction
