@@ -1,0 +1,13 @@
+*vimim-wubi.txt* Plugin that adds wubi imput method to Vim
+
+==============================================================================
+Author: Yesheng Zou <yeshengzou@gmail.com>                 *vimim-wubi-author*
+
+
+==============================================================================
+USAGE                                                     *vimim-wubi-usage*
+
+*Ctrl-l* to toggle english/chinese input
+
+*Ctrl-\* to toggle english/chinese punctuation when in chinese mode
+

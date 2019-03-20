@@ -5,7 +5,7 @@
 
 ### By vim-plug
 
-Add `Plug 'pkuwwt/vimim-wubi' between `call plug#begin()` and `call plug#end()`, which looks like
+Add `Plug 'pkuwwt/vimim-wubi'` between `call plug#begin()` and `call plug#end()`, which looks like
 
 ```
 call plug#begin()
