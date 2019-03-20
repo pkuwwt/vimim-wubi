@@ -22,3 +22,9 @@ And then execute
 
 Put `plugin` and `doc` directories into `~/.vim/`.
 
+
+## Usage
+
+  * `Ctrl-l` to toggle english/chinese mode
+  * `ctrl-\` to toggle punctuation mode when in chinese mode
+
